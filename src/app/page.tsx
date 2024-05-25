@@ -1,4 +1,6 @@
+import Post from '@/components/Post';
 import { cookieBasedClient, isAuthenticated } from '@/utils/amplify-utils';
+import { onDelete } from './_actions/actions';
 
 export default async function Home() {
   const entries = await getEntries(); // Call data fetching function
@@ -11,8 +13,9 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <h1>List of all Journal Entries</h1>
-      {entries.map((entry) => (
-        <div key={entry.id}>{entry.title}</div>
+      {entries.map((entry, key) => (
+        // <div key={entry.id}>{entry.title}</div>
+        <Post key={key} post={entry} onDelete={onDelete} isSignedIn={isSignedIn}/>
       ))}
     </main>
   );

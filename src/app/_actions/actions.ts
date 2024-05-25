@@ -1,6 +1,7 @@
 "use server"
 
 import { cookieBasedClient } from "@/utils/amplify-utils"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 
@@ -12,4 +13,13 @@ export async function createPost(formData: FormData) {
 
     console.log("data", data)
     redirect("/")
+}
+
+export async function onDelete(id: string) {
+    const {data, errors} = await cookieBasedClient.models.Entry.delete({
+        id
+    })
+
+    console.log("delete", data)
+    revalidatePath("/")
 }
