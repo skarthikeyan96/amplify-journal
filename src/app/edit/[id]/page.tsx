@@ -15,8 +15,6 @@ const UpdateJournalEntry = async ({ params }: { params: { id: string } }) => {
       selectionSet: ['createdAt', 'description' ,'id', 'title', 'updatedAt'],
     }
   );
-
-  console.log(post)
   
   return (
    <UpdateForm initialData={{ id: params.id, title: post?.title ?? '', content: post?.description ?? '' }}/>

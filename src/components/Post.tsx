@@ -1,42 +1,31 @@
-"use client"
+"use client";
 
-import React from 'react'
-import { Schema } from '../../amplify/data/resource';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Button } from '@aws-amplify/ui-react';
+import React from "react";
+import Link from "next/link";
 
-
-const Post = ({post, onDelete, isSignedIn}: {
-    post: any;
-    onDelete: (id: string) => void;
-    isSignedIn: boolean;
+const Post = ({
+  post,
+}: {
+  post: any;
+  onDelete: (id: string) => void;
+  isSignedIn: boolean;
 }) => {
-    const router = useRouter();
-    const onDetail = () => router.push(`posts/${post.id}`)
-    const onUpdate = () => router.push(`edit/${post.id}`)
-    console.log(post)
-
-    return (
-        <div className="border bg-gray-100 w-full p-4 rounded flex justify-between ">
-        <button onClick={onDetail}>
-          <div className="flex gap-2">
-            <div>Title:</div>
-            <div>{post.title}</div>
-          </div>
-        </button>
-        <Button onClick={onUpdate}> Edit Journal </Button>
-        <input type="hidden" name="id" id="id" value={post.id} />
-        {isSignedIn ? (
-          <button
-            className="text-red-500 cursor-pointer"
-            onClick={() => onDelete(post.id)}
-          >
-            X
-          </button>
-        ) : null}
+  const truncate = (input: string) =>
+  input?.length > 100 ? `${input.substring(0, 90)}...` : input;
+  return (
+    <Link href={`posts/${post.id}`}>
+     <div className="grid gap-4 p-4 sm:p-6">
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          {new Date(post.createdAt).toDateString()}
+        </div>
+        <h4 className="text-lg font-medium">{post.title}</h4>
       </div>
-    )
-}
+      <p className="text-gray-500 dark:text-gray-400">{truncate(post.description)}</p>
+    </div>
+    </Link>
+   
+  );
+};
 
 export default Post;

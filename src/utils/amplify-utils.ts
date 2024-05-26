@@ -5,7 +5,6 @@ import { getCurrentUser } from "aws-amplify/auth/server";
 import { generateServerClientUsingCookies } from "@aws-amplify/adapter-nextjs/data";
 import { Schema } from "../../amplify/data/resource";
 
-//
 export const cookieBasedClient = generateServerClientUsingCookies<Schema>({
   config,
   cookies,
