@@ -10,7 +10,12 @@ export async function createPost(formData: FormData) {
         title: formData.get("title")?.toString() || "", // TODO: implement client side validation
         description: formData.get("description")?.toString() || ""
     })
+    console.log("data", data)
+    redirect("/")
+}
 
+export async function updatePost(journalentry: any) {
+    const {data} = await cookieBasedClient.models.Entry.update(journalentry)
     console.log("data", data)
     redirect("/")
 }

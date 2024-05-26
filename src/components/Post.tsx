@@ -3,6 +3,8 @@
 import React from 'react'
 import { Schema } from '../../amplify/data/resource';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@aws-amplify/ui-react';
 
 
 const Post = ({post, onDelete, isSignedIn}: {
@@ -12,6 +14,8 @@ const Post = ({post, onDelete, isSignedIn}: {
 }) => {
     const router = useRouter();
     const onDetail = () => router.push(`posts/${post.id}`)
+    const onUpdate = () => router.push(`edit/${post.id}`)
+    console.log(post)
 
     return (
         <div className="border bg-gray-100 w-full p-4 rounded flex justify-between ">
@@ -21,6 +25,7 @@ const Post = ({post, onDelete, isSignedIn}: {
             <div>{post.title}</div>
           </div>
         </button>
+        <Button onClick={onUpdate}> Edit Journal </Button>
         <input type="hidden" name="id" id="id" value={post.id} />
         {isSignedIn ? (
           <button

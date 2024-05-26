@@ -2,6 +2,7 @@ import { cookieBasedClient, isAuthenticated } from "@/utils/amplify-utils";
 import { revalidatePath } from "next/cache";
 import React from "react";
 import { Schema } from "../../../../amplify/data/resource";
+import Link from "next/link";
 
 const Posts = async ({ params }: { params: { id: string } }) => {
   if (!params.id) return null;
@@ -13,7 +14,7 @@ const Posts = async ({ params }: { params: { id: string } }) => {
     },
     {
       authMode: "userPool",
-      selectionSet: ["id", "title"],
+      selectionSet: ['createdAt', 'description' ,'id', 'title'],
     }
   );
 //   const { data: allComments } = await cookieBasedClient.models.Comment.list({
@@ -25,6 +26,7 @@ const Posts = async ({ params }: { params: { id: string } }) => {
 //     (comment) => comment.post.id === params.id
 //   );
 
+console.log(post)
   return (
     <div className="flex flex-col items-center p-4 gap-4">
       <h1 className="text-2xl font-bold">Post Information:</h1>
